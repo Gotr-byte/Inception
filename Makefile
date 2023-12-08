@@ -57,6 +57,8 @@ wordpress-run-alt:
 nginx-build:
 	docker build -t this-nginx ./requirements/nginx
 nginx-run:
+	docker run -d -p 443:443 this-nginx
+nginx-run-alt:
 	docker run -d -p 443:443 --network LEMP-net this-nginx
 
 certs:
