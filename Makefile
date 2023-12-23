@@ -18,7 +18,9 @@ endef
 export IMG
 
 all : up
-
+dir :
+	mkdir /home/volumes/mariadb
+	mkdir /home/volumes/wordpress
 up :
 	# echo $IMG
 	@docker-compose -f ./srcs/docker-compose.yaml up -d

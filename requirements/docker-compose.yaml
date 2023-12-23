@@ -1,14 +1,35 @@
 version: "3"
+volumes:
+  wordpress:
+    name: wordpress
+    driver: local
+    driver_opts:
+      device: /home/volumes/wordpress
+      o: bind
+      type: none
+  mariadb:
+    name: mariadb
+    driver: local
+    driver_opts:
+      device: /home/volumes/mariadb
+      o: bind
+      type: none
 services:
   nginx:
     build: ./srcs/nginx
+    image: nginx:42
     ports:
       - "443:443"
     restart: always
+    depends_on:
+      - wordpress
     networks:
       inception:
+    volumes:
+     - wordpress:/var/www/html
   wordpress:
     build: ./srcs/wordpress
+    image: wordpress:42
     ports:
       - "9000:9000"
     depends_on:
@@ -19,13 +40,18 @@ services:
       DB_HOST: mariadb
       DB_USER: {$DB_USER}
       DB_PASS: {$DB_PASS}
+      DB_ROOT: {$DB_ROOT}
       DB_NAME: {$DB_NAME}
-    # volumes:
-    #   wp_data:/var/www/html
+      DB_EMAIL: {$DB_EMAIL}
+      WP_USER: {$WP_USER}
+      WP_PASS: {$WP_PASS}
+    volumes:
+      - wordpress:/var/www/html
     networks:
       inception:
   mariadb:
     build: ./srcs/mariadb
+    image: mariadb:42
     env_file:
       - .env
     ports:
@@ -33,10 +59,11 @@ services:
     environment:
       DB_NAME: {$DB_NAME}
       DB_PASS: {$DB_PASS}
-    # volumes:
-    #   - ./mysql:/var/lib/mysql
+      DB_ROOT: {$DB_ROOT}
+      DB_USER: {$DB_USER}
+    volumes:
+      - mariadb:/var/lib/mysql
     networks:
       inception:
 networks:
   inception:
-# volumes:
