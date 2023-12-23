@@ -7,4 +7,4 @@ RUN apt update && apt upgrade -y
 RUN apt install mariadb-server
 COPY ./components/db_setup.sh ./
 RUN chmod +x db_setup.sh
-CMD ["db_setup.sh"]
+ENTRYPOINT ["db_setup.sh"]

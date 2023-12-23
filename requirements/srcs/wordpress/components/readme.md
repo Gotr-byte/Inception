@@ -4,3 +4,4 @@
 # of the container.
 # What to run iside of the container and what to run in the dockerfile?
 # Need to adjust the config file in a secure manner.
+Needs to be listening to port.
