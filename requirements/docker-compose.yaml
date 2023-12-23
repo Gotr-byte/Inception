@@ -38,13 +38,13 @@ services:
       - .env
     environment:
       DB_HOST: mariadb
-      DB_USER: {$DB_USER}
-      DB_PASS: {$DB_PASS}
-      DB_ROOT: {$DB_ROOT}
-      DB_NAME: {$DB_NAME}
-      DB_EMAIL: {$DB_EMAIL}
-      WP_USER: {$WP_USER}
-      WP_PASS: {$WP_PASS}
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+      DB_ROOT: ${DB_ROOT}
+      DB_NAME: ${DB_NAME}
+      DB_EMAIL: ${DB_EMAIL}
+      WP_USER: ${WP_USER}
+      WP_PASS: ${WP_PASS}
     volumes:
       - wordpress:/var/www/html
     networks:
@@ -57,10 +57,10 @@ services:
     ports:
       - "3306:3306"
     environment:
-      DB_NAME: {$DB_NAME}
-      DB_PASS: {$DB_PASS}
-      DB_ROOT: {$DB_ROOT}
-      DB_USER: {$DB_USER}
+      DB_NAME: ${DB_NAME}
+      DB_PASS: ${DB_PASS}
+      DB_ROOT: ${DB_ROOT}
+      DB_USER: ${DB_USER}
     volumes:
       - mariadb:/var/lib/mysql
     networks:
