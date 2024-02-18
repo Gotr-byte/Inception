@@ -1,0 +1,1 @@
+In order to run username.42.fr you need to change the /env/hosts file. Add 127.0.0.1
