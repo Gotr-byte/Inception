@@ -7,5 +7,6 @@ if [ ! -e /root/.not_first_run ]; then
 		service mariadb enable
     INITIALIZATION_STATEMENTS="CREATE USER 'your_user'@'172.17.0.1' IDENTIFIED BY 'your_password'; GRANT ALL PRIVILEGES ON *.* TO 'your_user'@'172.17.0.1' IDENTIFIED BY 'your_password' WITH GRANT OPTION; FLUSH PRIVILEGES;"
     mysql -u root --password="" -e "$INITIALIZATION_STATEMENTS"
+		service mariadb stop
 fi
-exec /bin/bash
+exec mysqld_safe
