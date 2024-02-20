@@ -1,6 +1,9 @@
 In order to run username.42.fr you need to change the /env/hosts file. Add 127.0.0.1
 Managed to get wordpress to start. Installed wordpress cli. Need to setup the /etc/php/8.2/fpm/pool.d/www.conf file. Set listen to 0.0.0.0:9000. Add more pm values.
 
+#Run the following to start php-fpm
+/usr/sbin/php-fpm8.2 -F
+
 Need to create a wordpress database or upload a ready database.
 
 #create a docker volume
