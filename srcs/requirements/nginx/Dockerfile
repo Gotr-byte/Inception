@@ -5,7 +5,7 @@ RUN apt-get update && \
 		apt-get install -y nginx openssl
 
 COPY ./components/nginx.conf /etc/nginx/nginx.conf
-COPY ./components/index.html /var/www/html/index.html
+# COPY ./components/index.html /var/www/html/index.html
 
 RUN openssl req -x509 -nodes -newkey rsa:4096 -days 365 \
 		-out /etc/ssl/certs/pbiederm.42.fr.crt \
