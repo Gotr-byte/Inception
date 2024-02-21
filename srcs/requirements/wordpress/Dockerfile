@@ -12,19 +12,9 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
     chmod +x wp-cli.phar && \
     mv wp-cli.phar /usr/local/bin/wp
 
+COPY ./conf/www.conf /etc/php/8.2/fpm/pool.d/
 # Setup WordPress
 WORKDIR /var/www/html
-RUN wp core download --allow-root && \
-    wp config create --dbname=mysql --dbuser=your_user --dbpass=your_password --dbhost=mariadb --allow-root
 EXPOSE 9000
-RUN wp core install --url=pbiederm.42.fr --title=Inception --admin_user=your_user --admin_password=your_password --admin_email=pbiederm@student.42wolfsburg.de --allow-root
-
-# CMD [/bin/bash]
-
-# todo get wordpress command line
-# curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-# make the wp-cli.phar executable
-# chmod +x wp-cli.phar
-# sudo mv wp-cli.phar /usr/local/bin/wp
-# setup wordpress so it connects with mariadb
-# test wordpress
+COPY ./script/wordpress.sh .
+ENTRYPOINT ["/bin/bash", "wordpress.sh"]

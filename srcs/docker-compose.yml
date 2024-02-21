@@ -1,7 +1,58 @@
-version: '3.8'
+version: '3'
+
+volumes:
+  mariadb-volume:
+    driver: local
+    driver_opts:
+      device: /home/piotr/data/db_data
+      type: volume
+      o: bind
+  wordpress-volume:
+    driver: local
+    driver_opts:
+      device: /home/piotr/data/wp_files
+      type: volume
+      o: bind
+
+networks:
+  inception-network:
 
 services:
   nginx:
-    build: ./requirements/nginx
+    container_name: nginx
+    build:
+      context: ./requirements/nginx
+    image: img_nginx
+    volumes:
+      - wordpress-volume:/var/www/html
+    networks:
+      - inception-network
     ports:
       - "443:443"
+    restart: unless-stopped
+    depends_on:
+      - wordpress
+
+  mariadb:
+    container_name: mariadb
+    build:
+      context: ./requirements/mariadb
+    image: img_mariadb
+    volumes:
+      - mariadb-volume:/var/lib/mysql
+    networks:
+      - inception-network
+    restart: unless-stopped
+
+  wordpress:
+    container_name: wordpress
+    depends_on:
+      - mariadb
+    build:
+      context: ./requirements/wordpress
+    image: img_wordpress
+    volumes:
+      - wordpress-volume:/var/www/html
+    networks:
+      - inception-network
+    restart: unless-stopped
