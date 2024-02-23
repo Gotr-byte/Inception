@@ -1,5 +1,13 @@
 #!/bin/bash
+if [ ! -d "/run/mysqld" ]; then
+	mkdir -p /run/mysqld
+	chown -R mysql:mysql /run/mysqld
+fi
 
+if [ ! -d "/var/lib/mysql/mysql" ]; then
+	
+	chown -R mysql:mysql /var/lib/mysql
+fi
 if [ ! -e /root/.not_first_run ]; then
     touch /root/.not_first_run
     sed -i 's/bind-address\s*=\s*127\.0\.0\.1/bind-address = 0.0.0.0/' /etc/mysql/mariadb.conf.d/50-server.cnf

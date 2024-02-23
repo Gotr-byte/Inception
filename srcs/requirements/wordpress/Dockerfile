@@ -29,6 +29,7 @@ COPY ./conf/www.conf /etc/php/8.2/fpm/pool.d/
 # RUN mkdir /run/php
 # Setup WordPress
 WORKDIR /var/www/html
+# RUN chmod 777 /var/www/html
 EXPOSE 9000
 COPY ./script/wordpress.sh .
 ENTRYPOINT ["/bin/bash", "wordpress.sh"]

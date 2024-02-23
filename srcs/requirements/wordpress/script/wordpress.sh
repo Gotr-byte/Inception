@@ -1,10 +1,12 @@
-if [ ! -e /root/.not_first_run ]; then
-    touch /root/.not_first_run
-		sleep 5 
-		wp core download --allow-root && \
+if [ ! -f .not_first_run ]; then
+    wp core download --allow-root
     wp config create --dbname=wordpress --dbuser=your_user --dbpass=your_password --dbhost=mariadb --allow-root
-		wp core install --url=pbiederm.42.fr --title=Inception --admin_user=your_user --admin_password=your_password --admin_email=pbiederm@student.42wolfsburg.de --allow-root --skip-email
-		wp plugin update --all --allow-root
-		wp theme install twentysixteen --activate --allow-root
+    wp core install --url=pbiederm.42.fr --title=Inception --admin_user=your_user --admin_password=your_password --admin_email=pbiederm@student.42wolfsburg.de --allow-root --skip-email
+		wp user create second_user second_user@sec.com --role=author --user_pass=second_user_pass --allow-root
+    wp theme install twentysixteen --activate
+    wp plugin update --all
+
+    touch .not_first_run
 fi
-php-fpm8.2 --nodaemonize --allow-root
+
+php-fpm8.2 --nodaemonize
