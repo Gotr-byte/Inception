@@ -7,4 +7,4 @@ if [ ! -e /root/.not_first_run ]; then
 		wp plugin update --all --allow-root
 		wp theme install twentysixteen --activate --allow-root
 fi
-php-fpm8.2 --nodaemonize --allow-root
+php-fpm8.2 --nodaemonize
