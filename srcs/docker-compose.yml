@@ -1,16 +1,16 @@
-version: '3'
+version: '3.8'
 
 volumes:
   mariadb-volume:
     driver: local
     driver_opts:
-      device: /home/piotr/data/db_data13
+      device: /home/piotr/data/db_data44
       type: volume
       o: bind
   wordpress-volume:
     driver: local
     driver_opts:
-      device: /home/piotr/data/wp_files13
+      device: /home/piotr/data/wp_files44
       type: volume
       o: bind
 
@@ -43,6 +43,8 @@ services:
     networks:
       - inception-network
     restart: unless-stopped
+    env_file:
+      - .env
 
   wordpress:
     container_name: wordpress
@@ -56,3 +58,5 @@ services:
     networks:
       - inception-network
     restart: unless-stopped
+    env_file:
+      - .env
