@@ -6,6 +6,12 @@ DC := docker-compose -f $(COMPOSE_FILE)
 
 .PHONY: up down remove-images remove-volumes prune build run full-cycle cycle clean fclean
 
+#first run
+init:
+	mkdir -p /home/iter/data/db_data42
+	mkdir -p /home/iter/data/wp_files42
+	$(DC) up -d
+	
 # Bring up the environment
 up:
 	$(DC) up -d

@@ -4,13 +4,13 @@ volumes:
   mariadb-volume:
     driver: local
     driver_opts:
-      device: /home/piotr/data/db_data44
+      device: /home/piotr/data/db_data42
       type: volume
       o: bind
   wordpress-volume:
     driver: local
     driver_opts:
-      device: /home/piotr/data/wp_files44
+      device: /home/piotr/data/wp_files42
       type: volume
       o: bind
 
