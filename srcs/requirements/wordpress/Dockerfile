@@ -14,11 +14,8 @@ RUN apt-get update && \
 	php8.2-pdo \
 	php8.2-gd php8.2-cli \
 	php8.2-mbstring \
-	redis \
-	php8.2-redis \
 	&& rm -rf /var/lib/apt/lists/* \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+    && apt-get clean
 
 # Download and install WP-CLI
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
@@ -26,10 +23,8 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
     mv wp-cli.phar /usr/local/bin/wp
 
 COPY ./conf/www.conf /etc/php/8.2/fpm/pool.d/
-# RUN mkdir /run/php
 # Setup WordPress
 WORKDIR /var/www/html
-# RUN chmod 777 /var/www/html
 EXPOSE 9000
 COPY ./script/wordpress.sh .
 ENTRYPOINT ["/bin/bash", "wordpress.sh"]
